@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<classrooms id="0">
+    <classroom>
+        <students>
+            <student id="0">
+                <name>Test</name>
+                <grades/>
+            </student>
+            <student id="1">
+                <name>Test2</name>
+                <grades/>
+            </student>
+            <student id="2">
+                <name>Test3</name>
+                <grades/>
+            </student>
+        </students>
+    </classroom>
+    <tasks>
+        <task id="T1">
+            <name>Megatest</name>
+        </task>
+    </tasks>
+    <expectations>
+        <expectation id="E1"/>
+        <expectation id="A1"/>
+        <expectation id="D1"/>
+    </expectations>
+</classrooms>
