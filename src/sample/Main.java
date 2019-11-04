@@ -17,37 +17,53 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml")); //get FXML
+        root.getStylesheets().add(getClass().getResource("theme.css").toString()); //get CSS
+        primaryStage.setTitle("gradeStack b1101"); //window title
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 
-    public static void main(String[] args) throws IOException, TransformerException {
-        launch(args);
-        DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dbbuilder;
+    DocumentBuilderFactory dbfactory;
+    DocumentBuilder dbbuilder;
 
+    static Document doc;
+    static Element root;
+    static Element classroom;
+    static Element students;
+    static Element student;
+    static Element tasks;
+
+    public static void main(String[] args) throws IOException, TransformerException {
+        Main main = new Main();
+        main.createXML();
+        launch(args);
+    }
+
+    public void createXML(){
         try{
+            dbfactory = DocumentBuilderFactory.newInstance();
             dbbuilder = dbfactory.newDocumentBuilder();
-            Document doc = dbbuilder.newDocument();
+            doc = dbbuilder.newDocument();
+            root = doc.createElement("classrooms");
 
             //XML element setup
-            Element root = doc.createElement("classrooms");
+
             doc.appendChild(root);
             root.setAttribute("id", "0");
-            Element classroom = doc.createElement("classroom");
+            classroom = doc.createElement("classroom");
             root.appendChild(classroom);
-            Element students = doc.createElement("students");
+            students = doc.createElement("students");
             classroom.appendChild(students);
-            Element tasks = doc.createElement("tasks");
+            tasks = doc.createElement("tasks");
             root.appendChild(tasks);
             Element expectations = doc.createElement("expectations");
             root.appendChild(expectations);
 
-            newStudent(doc, students, "Test", 0);
-            newStudent(doc, students, "Test2", 1);
-            newStudent(doc, students, "Test3", 2);
+            newStudent("Test", 0);
+            newStudent("Test2", 1);
+            newStudent("Test3", 2);
+            newStudent("Test4", 2);
 
             newExpectation(doc, expectations, "E1");
             newExpectation(doc, expectations, "A1");
@@ -69,6 +85,7 @@ public class Main extends Application {
                 }
             }
 
+
             saveToFile(doc);
         }catch(Exception e){
             e.printStackTrace();
@@ -85,14 +102,14 @@ public class Main extends Application {
         transformer.transform(input, new StreamResult(System.out));
     }
 
-    public static void newStudent(Document d, Element e, String n, int sID){ //d - XML document, e - classroom element, n - name, sID - student ID
-        Element student = d.createElement("student");
+    public static void newStudent(String n, int sID){ //n - name, sID - student ID
+        Element student = doc.createElement("student");
         student.setAttribute("id", Integer.toString(sID));
-        e.appendChild(student);
-        Element name = d.createElement("name");
+        students.appendChild(student);
+        Element name = doc.createElement("name");
         name.setTextContent(n);
         student.appendChild(name);
-        Element grades = d.createElement("grades");
+        Element grades = doc.createElement("grades");
         student.appendChild(grades);
     }
 
@@ -116,11 +133,23 @@ public class Main extends Application {
         e.appendChild(expectation);
     }
 
-    public static String returnAllStudents(Element e){
-        return e.getElementsByTagName("name").item(1).getTextContent();
+    public static String getStudentNames(int i){ //i is the ID of the student whose name is needed to be looked up
+        return students.getChildNodes().item(i).getFirstChild().getTextContent();
     }
 
-    public int numOfStudents(Element e){
-        return e.getChildNodes().getLength();
+    public static int getNumOfStudents(){
+        int num = 0;
+        for(Node child = students.getFirstChild(); child != null; child = child.getNextSibling()) {
+            num++;
+        }
+        return num;
     }
+
+    public Element getNodeByName(Element e, String s){ //searches through an element's child nodes until it finds one whose name match s, returns it
+        for(Node child = e.getFirstChild(); child != null; child = child.getNextSibling()) {
+            if(child instanceof Element && e.equals(child.getNodeName())) return (Element) child;
+        }
+        return null;
+    }
+
 }
