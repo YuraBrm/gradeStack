@@ -1,10 +1,14 @@
 package sample;
 
+import com.sun.javafx.css.StyleManager;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
@@ -14,25 +18,28 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 
 public class Main extends Application {
-
+    static Parent StageRoot;
+    static Stage stage;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml")); //get FXML
-        root.getStylesheets().add(getClass().getResource("theme.css").toString()); //get CSS
-        primaryStage.setTitle("gradeStack b1101"); //window title
-        primaryStage.setScene(new Scene(root, 800, 600));
+        this.stage = primaryStage; //workaround to get stage to instantiate in start
+        StageRoot = FXMLLoader.load(getClass().getResource("students.fxml")); //get FXML
+        StageRoot.getStylesheets().add(getClass().getResource("theme.css").toString()); //get CSS
+        primaryStage.setTitle("gradeStack 1111"); //window title
+        primaryStage.setScene(new Scene(StageRoot, 1100, 700)); //default width and height
         primaryStage.show();
     }
 
+    /* Java DOM objects creation*/
     DocumentBuilderFactory dbfactory;
     DocumentBuilder dbbuilder;
-
     static Document doc;
     static Element root;
     static Element classroom;
     static Element students;
     static Element student;
     static Element tasks;
+    static Element expectations;
 
     public static void main(String[] args) throws IOException, TransformerException {
         Main main = new Main();
@@ -57,7 +64,7 @@ public class Main extends Application {
             classroom.appendChild(students);
             tasks = doc.createElement("tasks");
             root.appendChild(tasks);
-            Element expectations = doc.createElement("expectations");
+            expectations = doc.createElement("expectations");
             root.appendChild(expectations);
 
             newStudent("Test", 0);
@@ -65,9 +72,9 @@ public class Main extends Application {
             newStudent("Test3", 2);
             newStudent("Test4", 2);
 
-            newExpectation(doc, expectations, "E1");
-            newExpectation(doc, expectations, "A1");
-            newExpectation(doc, expectations, "D1");
+            newExpectation("E1");
+            newExpectation("A1");
+            newExpectation("D1");
 
             newTask(doc, tasks, "Megatest", "T1", new String[] {"E1", "A1"}, expectations);
 
@@ -127,10 +134,10 @@ public class Main extends Application {
         }
     }
 
-    public static void newExpectation(Document d, Element e, String c){ //d - XML document, e - classroom element, n - name, c - code
-        Element expectation = d.createElement("expectation");
+    public static void newExpectation(String c){ //c - code
+        Element expectation = doc.createElement("expectation");
         expectation.setAttribute("id", c);
-        e.appendChild(expectation);
+        expectations.appendChild(expectation);
     }
 
     public static String getStudentNames(int i){ //i is the ID of the student whose name is needed to be looked up
@@ -145,6 +152,14 @@ public class Main extends Application {
         return num;
     }
 
+    public static int getNumOfExpectations(){
+        int num = 0;
+        for(Node child = expectations.getFirstChild(); child != null; child = child.getNextSibling()) {
+            num++;
+        }
+        return num;
+    }
+
     public Element getNodeByName(Element e, String s){ //searches through an element's child nodes until it finds one whose name match s, returns it
         for(Node child = e.getFirstChild(); child != null; child = child.getNextSibling()) {
             if(child instanceof Element && e.equals(child.getNodeName())) return (Element) child;
@@ -152,4 +167,13 @@ public class Main extends Application {
         return null;
     }
 
+    public FXMLLoader switchScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        StageRoot = loader.load(getClass().getResource("student_overview.fxml")); //get FXML
+        StageRoot.getStylesheets().add(getClass().getResource("theme.css").toString()); //get CSS
+        Scene scene = new Scene(StageRoot, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+        return loader;
+    }
 }
