@@ -73,3 +73,18 @@
     -fx-background-radius: 10px;
     -fx-font-family: "Cabin Bold";
 }
+
+.button#sBtn {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-graphic: url("res/students(1).png");
+}
+
+.button#tBtn {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-graphic: url("res/tasks(1).png");
+}
+
+.button#setBtn {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-graphic: url("res/settings.png");
+}

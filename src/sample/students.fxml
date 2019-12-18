@@ -3,16 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentsController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="7.5" prefWidth="100.0" />
@@ -28,23 +28,19 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" spacing="10">
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <Button mnemonicParsing="false" text="Add New" />
+            <Button fx:id="add" mnemonicParsing="false" text="Add New" />
             <Button fx:id="view" mnemonicParsing="false" text="Overview" />
             <Button mnemonicParsing="false" text="Remove" />
          </children>
       </HBox>
-      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="0" GridPane.rowSpan="3">
-        <tabs>
-          <Tab text="Untitled Tab 1" />
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+      <VBox fx:id="tabBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #11F7B2;" GridPane.rowSpan="3">
+         <children>
+             <Button fx:id="studentsbtn" mnemonicParsing="false" text="" GridPane.fillWidth="" />
+             <Button fx:id="tasksbtn" mnemonicParsing="false" text="" />
+             <Button fx:id="settingsbtn" mnemonicParsing="false" text="" />
+         </children></VBox>
       
     </children>
    <rowConstraints>
