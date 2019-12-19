@@ -1,0 +1,27 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 18, 2019, 2:47:01 PM
+    Author     : earl
+*/
+.body {
+  margin: 25px;
+  background-color: rgb(240,240,240);
+  font-family: arial, sans-serif;
+  font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #11F7B2;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.5em;
+    -fx-background-radius: 10px;
+    -fx-font-family: "Cabin Bold";
+}
+
+
+
+
