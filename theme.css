@@ -1,0 +1,90 @@
+@font-face {
+    font-family: "Cabin Bold";
+    src: url("/sample/res/Cabin-Bold.ttf");
+}
+@font-face {
+    font-family: "Cabin";
+    src: url("/sample/res/Cabin-Regular.ttf");
+}
+
+
+.root {
+    -fx-font-family: "Cabin";
+    -fx-base: #FDFDFD;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.label {
+    -fx-font-family: "Cabin Bold";
+}
+
+.text{ /*font anti-aliasing workaround*/
+    -fx-font-smoothing-type: gray;
+}
+
+
+.list-view .list-cell:even {
+    -fx-text-fill: #413E53;
+    -fx-font-size: 2em;
+}
+.list-view .list-cell:odd {
+    -fx-text-fill: #413E53;
+    -fx-font-size: 2em;
+}
+
+.list-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 1em;
+    -fx-border-width: 3px;
+    /*-fx-border-color: #F3F4FB;*/
+    -fx-border-color: #e6e8f7;
+    -fx-border-radius: 10px;
+    -fx-border-insets: 10px 0;
+}
+
+.list-cell:focused {
+    -fx-border-color: #11F7B2;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-border-insets: 10px 0;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    /*-fx-border-color: transparent;*/
+}
+
+.tab {
+    -fx-pref-height: 100;
+    -fx-min-height: 100;
+}
+.tab-pane{
+    -fx-padding: 0 -1 -1 -1;
+    -fx-border-width: 3px;
+    -fx-border-color: #e6e8f7;
+    -fx-pref-height: 100;
+    -fx-min-height: 100;
+}
+
+.button {
+    -fx-background-color: #11F7B2;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.5em;
+    -fx-background-radius: 10px;
+    -fx-font-family: "Cabin Bold";
+}
+
+.button#sBtn {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-graphic: url("res/students(1).png");
+}
+
+.button#tBtn {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-graphic: url("res/tasks(1).png");
+}
+
+.button#setBtn {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-graphic: url("res/settings.png");
+}

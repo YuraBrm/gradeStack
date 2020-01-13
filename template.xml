@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<classrooms>
+    <classroom>
+        <clsName></clsName>
+
+        <students>
+
+        </students>
+
+        <tasks>
+
+        </tasks>
+    </classroom>
+</classrooms>
+
+        /*NodeList classrooms = doc.getElementsByTagName("classrooms");
+        NodeList classroom = ((Element)classrooms.item(0)).getElementsByTagName("classroom");
+        NodeList students = ((Element)classroom.item(0)).getElementsByTagName("students");
+
+        Element student = doc.createElement("student");
+        students.appendChild(student);
+
+
+        NodeList tasks = ((Element)classroom.item(0)).getElementsByTagName("tasks");
+
+        /*NodeList name = ((Element)student.item(0)).getElementsByTagName("name");
+        NodeList grade = ((Element)student.item(0)).getElementsByTagName("grade");
+        NodeList value = ((Element)grade.item(0)).getElementsByTagName("value");
+        NodeList taskID = ((Element)student.item(0)).getElementsByTagName("taskID");*/
+
+        //System.out.println(((Element)name.item(0)).getTextContent() + " has a grade of " + ((Element)value.item(0)).getTextContent());
+        //exp.item(0).getTextContent();
