@@ -45,7 +45,7 @@
             <TableColumn fx:id="one" text="1"><columns><TableColumn fx:id="oneM" text="-" /><TableColumn fx:id="oneC" text="C" /><TableColumn fx:id="oneP" text="+" /></columns></TableColumn>
             <TableColumn fx:id="two" text="2"><columns><TableColumn fx:id="twoM" text="-" /><TableColumn fx:id="twoC" text="C" /><TableColumn fx:id="twoP" text="+" /></columns></TableColumn>
             <TableColumn fx:id="three" text="3"><columns><TableColumn fx:id="threeM" text="-" /><TableColumn fx:id="threeC" text="C" /><TableColumn fx:id="threeP" text="+" /></columns></TableColumn>
-            <TableColumn fx:id="four" text="4"><columns><TableColumn fx:id="fourM" text="-" /><TableColumn fx:id="fourMC" text="-/" /><TableColumn fx:id="fourC" text="C" /><TableColumn fx:id="fourCP" text="/+" /><TableColumn fx:id="fourP" text="+" /></columns></TableColumn>
+             <TableColumn fx:id="four" text="4"><columns><TableColumn fx:id="fourM" text="-" /><TableColumn fx:id="fourMC" text="-/" /><TableColumn fx:id="fourC" text="C" /><TableColumn fx:id="fourCP" text="/+" /><TableColumn fx:id="fourP" text="+" /></columns></TableColumn>
           </columns>
       </TableView>
     </children>
