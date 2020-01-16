@@ -32,6 +32,7 @@
          <children>
             <Button fx:id="add" mnemonicParsing="false" text="Add New" />
             <Button fx:id="view" mnemonicParsing="false" text="Overview" />
+            <Button fx:id="graphView" mnemonicParsing = "false" text = "Student progress" />
             <Button mnemonicParsing="false" text="Remove" />
          </children>
       </HBox>
