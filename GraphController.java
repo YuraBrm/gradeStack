@@ -40,8 +40,8 @@ public class GraphController {
         expectationAxis.setLabel("Tasks");  
         expectationAxis.setTickLabelRotation(90);
        
-        //grades represents the y-axis of the graph.
-                String[] grades = {"INC", "R-", "R", "R+",  "1-",  "1",  "1+",  "2-",  "2",
+        
+                String[] grades = {"INC", "R-", "R", "R+",  "1-",  "1",  "1+",  "2-",  "2", //grades represents the y-axis of the graph.
                     "2+",  "3-",  "3",  "3+",  "4-", "4-/4", "4", "4/4+", "4+"};
                 gradeAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grades)));
                 gradeAxis.setAutoRanging(false);
@@ -52,7 +52,7 @@ public class GraphController {
 
                }
 
-//All of the student's grades are found using integer i and added to series1.
+
 
   //     task = Main.getStudentTask()
        
@@ -62,11 +62,11 @@ public class GraphController {
 
 void fillGraph () {
 
-       //series1 stores all of the data for the graph.
-        XYChart.Series series1 = new XYChart.Series();
+      
+        XYChart.Series series1 = new XYChart.Series();  //series1 stores all of the data for the graph.
 
-                             String expect = "";
-            String gradeMean = "";
+            String expect = ""; //expect is the expectation of each individual grade.
+            String gradeMean = ""; //gradeMean is the mean of each grade 
            
            
            for(int i = 0; i < Main.getNumofGrades(studentNameTitle.getText()); i++){
@@ -74,7 +74,7 @@ void fillGraph () {
                 if (!Main.getStudentExpectation(studentNameTitle.getText(), i2).equals("") && !Main.getStudentGrade(studentNameTitle.getText(), i2).equals("")) {
                expect = Main.getStudentExpectation(studentNameTitle.getText(), i2);
                int gradeListLength = 0;
-               for (int gradeScan = 1; gradeScan < 19; gradeScan++) {
+               for (int gradeScan = 1; gradeScan < 19; gradeScan++) { //This for loop cycles through every single possible grade, seeing if the student has that grade.
                    if (Main.getStudentExpectation(studentNameTitle.getText(), gradeScan).equals(expect) && !Main.getStudentGrade(studentNameTitle.getText(), gradeScan).equals("")) {
                        gradeListLength++;
                    }
