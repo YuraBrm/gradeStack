@@ -24,29 +24,28 @@ public class Main extends Application {
         this.stage = primaryStage; //workaround to get instantiate a stage that was already defined
         StageRoot = FXMLLoader.load(getClass().getResource("students.fxml")); //get FXML
         StageRoot.getStylesheets().add(getClass().getResource("theme.css").toString()); //get CSS
-        primaryStage.setTitle("gradeStack Beta");
-        primaryStage.setScene(new Scene(StageRoot, 1100, 700)); //default width and height
+        primaryStage.setTitle("gradeStack 2020-01-20");
+        primaryStage.setScene(new Scene(StageRoot, 1000, 650)); //default width and height
         primaryStage.show();
     }
 
     /* Java DOM objects creation*/
-    DocumentBuilderFactory dbfactory;
-    DocumentBuilder dbbuilder;
+    static DocumentBuilderFactory dbfactory;
+    static DocumentBuilder dbbuilder;
     static Document doc;
     static Element root;
     static Element classroom;
     static Element students;
-    static Element student;
     static Element tasks;
     static Element expectations;
 
-    public static void main(String[] args) throws IOException, TransformerException {
+    public static void main(String[] args) {
         Main main = new Main();
         main.createXML();
         launch(args);
     }
 
-    public void createXML(){
+    public static void createXML(){
         try{
             dbfactory = DocumentBuilderFactory.newInstance();
             dbbuilder = dbfactory.newDocumentBuilder();
@@ -54,7 +53,6 @@ public class Main extends Application {
             root = doc.createElement("classrooms");
 
             //XML element setup
-
             doc.appendChild(root);
             root.setAttribute("id", "0");
             classroom = doc.createElement("classroom");
@@ -66,29 +64,7 @@ public class Main extends Application {
             expectations = doc.createElement("expectations");
             classroom.appendChild(expectations);
 
-            //placeholders
-            /*newStudent("Test", 0);
-            newStudent("Test2", 1);
-            newStudent("Test3", 2);
-            newStudent("Test4", 2);
-            Main.newStudent("JFX Test", 4);
-            Main.newStudent("CSS Test", 5);
-            Main.newStudent("listview scroll", 5);
-            newTask("Megatest", "A1", new String[] {"T1", "T2", "T3"});*/
-
-            /*for(int i=0; i < expectations.getChildNodes().getLength(); i++){
-                System.out.println(expectations.getChildNodes().getLength());
-            }*/
-
-            if(expectations.getChildNodes().getLength() != 0){
-                for(int i=0; i < expectations.getChildNodes().getLength(); i++){
-                    System.out.println(expectations.getChildNodes().item(i).getAttributes().getNamedItem("id").getNodeValue());
-                }
-            }
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        }catch(Exception e){ e.printStackTrace(); }
     }
 
     public static void loadFile(File f) throws IOException, SAXException {
@@ -101,15 +77,12 @@ public class Main extends Application {
         parser.parse(is);
         doc = parser.getDocument();
 
-        root = (Element) doc.getChildNodes();
-        classroom = (Element) root.getChildNodes();
-        students = (Element) students.getChildNodes();
+        root = doc.getElementById("classrooms");
     }
 
     public static void saveToFile(File f) throws TransformerException {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        //Result output = new StreamResult(new File("src\\sample\\res\\classrooms.xml"));
         Result output = new StreamResult(f);
         Source input = new DOMSource(doc);
 
@@ -126,21 +99,6 @@ public class Main extends Application {
         student.appendChild(name);
         Element grades = doc.createElement("grades");
         student.appendChild(grades);
-        /*Element grade = doc.createElement("grade");
-        grade.setAttribute("exp", "T1");
-        grade.setAttribute("id", "A1");
-        grade.setTextContent("6");
-        grades.appendChild(grade);
-        Element grade2 = doc.createElement("grade");
-        grade2.setAttribute("exp", "T2");
-        grade2.setAttribute("id", "A1");
-        grade2.setTextContent("13");
-        grades.appendChild(grade2);
-        Element grade3 = doc.createElement("grade");
-        grade3.setAttribute("exp", "T3");
-        grade3.setAttribute("id", "A1");
-        grade3.setTextContent("15");
-        grades.appendChild(grade3);*/
     }
 
     public static void newTask(String n, String c, String[] exp){ //n - plain text name, c - code, exp[] - expectations
@@ -150,6 +108,7 @@ public class Main extends Application {
         Element name = doc.createElement("name");
         name.setTextContent(n);
         task.appendChild(name);
+
         for(int i=0; i < exp.length; i++){
             Element expectation = doc.createElement("expectation");
             expectation.setTextContent(exp[i]);
@@ -258,28 +217,6 @@ public class Main extends Application {
         }
 
         return array;
-
-        /*
-        0 - EXP
-        1 - inc
-        2 - r-
-        3 - r
-        4 - r+
-        5 - 1-
-        6 - 1
-        7 - 1+
-        8 - 2-
-        9 - 2
-        10 - 2+
-        11 - 3-
-        12 - 3
-        13 - 3+
-        14 - 4-
-        15 - 4-/4
-        16 - 4
-        17 - 4/4+
-        18 - 4+
-         */
     }
 
     public static String[] getFormattedStudentRow(int id, String[] exp, String s){ //id is the student number, exp is the existing expectations, s is the name of the task
@@ -304,14 +241,12 @@ public class Main extends Application {
     }
 
     public static void setGrade(String task, String student, String exp, String grade){ //task is the task, student is student's name, grade is grade value
-        int pointer = 0; //tracks how many expectations out of the required number (numofexp) are filled in
-        boolean isGradeSet = false; //reports whether the required grade object was found and set
         String taskID = task.substring(task.indexOf("[")+1,task.indexOf("]"));
         for(Node child = students.getFirstChild(); child != null; child = child.getNextSibling()) {
             if(child.getFirstChild().getTextContent().equals(student)){
                 if(child.getFirstChild().getNextSibling().getFirstChild() == null){ //special case when student doesn't have any grades
                     Element newGrade = doc.createElement("grade");
-                    newGrade.setTextContent(grade);
+                    newGrade.setTextContent(Integer.toString(inputToGrade(grade)));
                     newGrade.setAttribute("id", taskID);
                     newGrade.setAttribute("exp", exp);
                     child.getFirstChild().getNextSibling().appendChild(newGrade);
@@ -319,11 +254,11 @@ public class Main extends Application {
                 for(Node expchild = child.getFirstChild().getNextSibling().getFirstChild(); expchild != null; expchild = expchild.getNextSibling()){
                     if(expchild.getAttributes().getNamedItem("id").getNodeValue().equals(taskID)
                             && expchild.getAttributes().getNamedItem("exp").getNodeValue().equals(exp)){
-                        expchild.setTextContent(grade);
+                        expchild.setTextContent(Integer.toString(inputToGrade(grade)));
                         break;
                     }else if(expchild.getNextSibling() == null){ //only attempt to create new grade if you've cycled through all of them beforehand
                         Element newGrade = doc.createElement("grade");
-                        newGrade.setTextContent(grade);
+                        newGrade.setTextContent(Integer.toString(inputToGrade(grade)));
                         newGrade.setAttribute("id", taskID);
                         newGrade.setAttribute("exp", exp);
                         child.getFirstChild().getNextSibling().appendChild(newGrade);
@@ -331,6 +266,49 @@ public class Main extends Application {
                     }
                 }
             }
+        }
+    }
+
+    public static int inputToGrade(String s){
+        int realGrade = 1;
+
+        switch(s){
+            case "inc": case "INC": case "i": case "I": realGrade = 1; break;
+            case "R-": case "r-": realGrade = 2; break;
+            case "R": case "r": realGrade = 3; break;
+            case "R+": case "r+": realGrade = 4; break;
+            case "1-": realGrade = 5; break;
+            case "1": realGrade = 6; break;
+            case "1+": realGrade = 7; break;
+            case "2-": realGrade = 8; break;
+            case "2": realGrade = 9; break;
+            case "2+": realGrade = 10; break;
+            case "3-": realGrade = 11; break;
+            case "3": realGrade = 12; break;
+            case "3+": realGrade = 13; break;
+            case "4-": realGrade = 14; break;
+            case "4-/4": case "4/4-": case "4-/": realGrade = 15; break;
+            case "4": realGrade = 16; break;
+            case "4/4+": case "4+/4": case "4+/": realGrade = 17; break;
+            case "4+": realGrade = 18; break;
+        }
+        return realGrade;
+    }
+
+    public static Boolean checkName(String s){ //checks if the name of a new student doesn't conflict with past names
+        if(students == null){
+            return true;
+        }
+
+        for(Node n = students.getFirstChild(); n != null; n = n.getNextSibling()){
+            if(n.getFirstChild().getTextContent() == s){return true;}
+        }
+        return false;
+    }
+
+    public static void removeStudent(String s){
+        for(Node n = students.getFirstChild(); n != null; n = n.getNextSibling()){
+            if(n.getFirstChild().getTextContent() == s){students.removeChild(n);}
         }
     }
 }

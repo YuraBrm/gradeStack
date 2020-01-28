@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,16 +7,12 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.TransformerException;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +20,7 @@ import java.util.ResourceBundle;
 public class StudentsController implements Initializable {
 
     @FXML public ListView listView;
-    @FXML public Button view, add;
+    @FXML public Button view, add, remove;
     @FXML public GridPane grid;
     @FXML public Button studentsbtn;
     @FXML public Button tasksbtn;
@@ -137,7 +131,7 @@ public class StudentsController implements Initializable {
             });
 
         add.setOnAction((event) -> {
-            String entry = new String();
+            String entry;
             Dialog dialog = new Dialog<>();
             dialog.setTitle("New Student");
             ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
@@ -157,11 +151,21 @@ public class StudentsController implements Initializable {
             dialog.showAndWait();
 
             entry = name.getText();
-            Main.newStudent(entry, 0);
+
+            if(entry != null && entry.length() < 50 && Main.checkName(entry) == false) { //failsafes to check if name can be created
+                Main.newStudent(entry, 0);
+            }
 
             listView.getItems().clear(); //refreshing the listview
             for(int i = 0; i < Main.getNumOfStudents(); i++) {
                 listView.getItems().add(Main.getStudentNames(i));
+            }
+        });
+
+        remove.setOnAction((event) -> {
+            if(listView.getSelectionModel().getSelectedItem() != null) {
+                Main.removeStudent(listView.getSelectionModel().getSelectedItem().toString());
+                listView.getItems().remove(listView.getSelectionModel().getSelectedIndex());
             }
         });
     }

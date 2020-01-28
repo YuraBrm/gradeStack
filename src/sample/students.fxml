@@ -11,8 +11,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentsController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="7.5" prefWidth="100.0" />
@@ -23,7 +21,7 @@
     <children>
         <ListView fx:id="listView" GridPane.columnIndex="2" GridPane.rowIndex="2"> </ListView>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" GridPane.columnIndex="0" />
-      <Label text="Students O" GridPane.columnIndex="2">
+      <Label text="Students" GridPane.columnIndex="2">
          <font>
             <Font size="48.0" />
          </font>
@@ -32,8 +30,7 @@
          <children>
             <Button fx:id="add" mnemonicParsing="false" text="Add New" />
             <Button fx:id="view" mnemonicParsing="false" text="Overview" />
-            <Button fx:id="graphView" mnemonicParsing = "false" text = "Student progress" />
-            <Button mnemonicParsing="false" text="Remove" />
+            <Button fx:id="remove" mnemonicParsing="false" text="Remove" />
          </children>
       </HBox>
       <VBox fx:id="tabBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #11F7B2;" GridPane.rowSpan="3">
@@ -41,7 +38,8 @@
              <Button fx:id="studentsbtn" mnemonicParsing="false" text="" GridPane.fillWidth="" />
              <Button fx:id="tasksbtn" mnemonicParsing="false" text="" />
              <Button fx:id="settingsbtn" mnemonicParsing="false" text="" />
-         </children></VBox>
+         </children>
+      </VBox>
       
     </children>
    <rowConstraints>

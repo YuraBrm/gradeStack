@@ -37,7 +37,6 @@
     -fx-background-color: #FFFFFF;
     -fx-padding: 1em;
     -fx-border-width: 3px;
-    /*-fx-border-color: #F3F4FB;*/
     -fx-border-color: #e6e8f7;
     -fx-border-radius: 10px;
     -fx-border-insets: 10px 0;
@@ -48,10 +47,6 @@
     -fx-border-width: 3px;
     -fx-border-radius: 10px;
     -fx-border-insets: 10px 0;
-}
-
-.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
-    /*-fx-border-color: transparent;*/
 }
 
 .tab {

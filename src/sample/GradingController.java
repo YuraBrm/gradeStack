@@ -3,14 +3,11 @@ package sample;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -107,16 +104,8 @@ public class GradingController implements Initializable {
 
         table.setItems(row);
         exp1.setCellFactory(TextFieldTableCell.forTableColumn());
-        /*exp1.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent cellEditEvent) {
-                System.out.println(cellEditEvent.getTablePosition().getRow());
-            }
-        });*/
 
         grade.setOnAction((event) -> { //grading dialogue box
-            String[] entry = new String[Main.getNumOfExpectations(title.getText()) + 1];
-            String[] expectations;
             Dialog dialog = new Dialog<>();
             dialog.setTitle("Grade Student");
             ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
@@ -171,12 +160,6 @@ public class GradingController implements Initializable {
 
             dialog.getDialogPane().setContent(gridPane);
             dialog.showAndWait();
-
-            //entry[0] = students.getSelectionModel().getSelectedItem().toString();
-            //for(int i = 0; i < exp.length; i++){
-                //entry[i + 1] = exp[i].getText();
-            //}
-            //System.out.println(entry[0] + entry[1] + entry[2] + entry[3]);
 
         });
         back.setOnAction((event) -> {
